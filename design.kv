@@ -1,0 +1,189 @@
+
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+
+<ElementCard@MDCard>: # Tarjeta personalizada
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    image: ''
+    text: ''
+    sub_text: ''
+    orientation: 'vertical'
+    ripple_behavior: True
+    on_release:
+        app.root.transition = RiseInTransition() # Cambiar de pantalla
+    Image:
+        source: root.image
+        halign: 'center'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.text
+            halign: 'center'
+        MDLabel:
+            text: root.sub_text
+            halign: 'center'
+
+# Para el botón de regresar
+<CustomizeScreen@MDBoxLayout>:
+    orientation: 'vertical'
+    text: ''
+    padding: 100
+    MDLabel:
+        text: root.text
+        halign: 'center'
+        pos_hint: {'center_x': .5}
+    MDFillRoundFlatButton:
+        text: 'Regresar'
+        pos_hint: {'center_x': 0.5}
+        on_release:
+            app.root.current = 'screen_principal'
+            app.root.transition = SlideTransition(direction='left')
+
+<Ui>: 
+    MDScreen:
+        name: 'screen_principal'
+        md_bg_color: 0, 0, 0, .8
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint: 1, .2
+                orientation: 'horizontal'
+                padding: '10dp'
+                pos_hint: {'center_y': .9}
+                MDCard:
+                    radius: '10dp'
+                    padding: '20dp'
+                    line_color: 1,3,1,.5    
+                    elavation: 70
+                    Image:
+                        source: 'AS.png'           
+
+                    MDLabel:
+                        text: 'CAMBIO DE COLOR'
+                        halign: 'center'
+                        pos_hint: {'center_y': 0.5}
+                        
+                    MDSwitch:
+                        pos_hint: {'center_y': 0.5}
+                        on_active:
+                            app.change_style(*args)                   
+
+
+            MDGridLayout:
+                cols: 3
+                size_hint: 1, .9                
+                padding: ['10dp','10dp','10dp','10dp'] 
+                spacing: '10dp'
+                
+                MDCard:
+                    size_hint:(.6, .3)
+                    pos_hint: {'center_x','center_y'}
+                    elevation: 4
+                    on_release:
+                        root.current = 'screen3'
+                    Label:
+                        text: 'Alimentación Sana'
+                        alignment: 'center'
+                        halign: 'center'#'left', 'center', 'right', 'justify', 'auto'
+                        valign: 'top' #bottom', 'middle', 'center', 'top'
+                    Image:
+                        source: 'AS.png'
+                        size_hint: (.5,.3)
+
+                        
+                    
+                    
+                
+                
+                ElementCard:
+                    text: 'RH'
+                    sub_text: 'Reserva de horas'
+                    elevation: 4                    
+                    on_release:
+                        root.current = 'screen1'
+                    Image: 
+                        source:'RH.png'
+                        
+                    MDLabel:
+                        text: 'RH'
+                    MDLabel:
+                        text: 'Reserva de Horas'
+                        hilign: 'center'
+
+                ElementCard:
+                    elevation: 4
+                    text: 'IG'
+                    sub_text: 'Información de Gimnasios'                    
+                    on_release:
+                        root.current = 'screen2'
+                    Image: 
+                        source:'IG.png' 
+                    
+
+                ElementCard:
+                    elevation: 4
+                    text: 'AS'
+                    sub_text: 'Alimentación Sana'                    
+                    on_release:
+                        root.current = 'screen3'
+                    Image: 
+                        source:'AS.png'
+
+                ElementCard:
+                    elevation: 4
+                    text: 'VT'
+                    sub_text: 'Video Tutoriales'                    
+                    on_release:
+                        root.current = 'screen4'
+                    Image: 
+                        source:'VT.png'
+
+
+                ElementCard:
+                    elevation: 4
+                    text: 'DP'
+                    sub_text: 'Dietas Personalizadas'                    
+                    on_release:
+                        root.current = 'screen5'
+                    Image: 
+                        source:'DP.png'
+
+                ElementCard:
+                    elevation: 4
+                    text: 'FP'
+                    sub_text: 'Forma de Pago'
+                    elevation: 4
+                    on_release:
+                        root.current = 'screen6'
+                    Image: 
+                        source:'FP.png'
+                 
+
+                    
+    MDScreen:
+        name: 'screen1'
+        CustomizeScreen:
+            text: 'Reserva de horarios'
+    MDScreen:
+        name: 'screen2'
+        CustomizeScreen:
+            text: 'Información Gimnasios'
+    MDScreen:
+        name: 'screen3'
+        CustomizeScreen:
+            text: 'Alimentación Sana'
+    MDScreen:
+        name: 'screen4'
+        CustomizeScreen:
+            text: 'Videos Tutoriales'
+    MDScreen:
+        name: 'screen5'
+        CustomizeScreen:
+            text: 'Dietas Personalizadas'
+    MDScreen:
+        name: 'screen6'
+        CustomizeScreen:
+            text: 'Forma de pago'
